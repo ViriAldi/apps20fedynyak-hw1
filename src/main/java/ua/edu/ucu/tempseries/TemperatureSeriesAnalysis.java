@@ -35,12 +35,12 @@ public class TemperatureSeriesAnalysis {
 
     public double deviation() throws  IllegalArgumentException {
         checkEmpty();
-        double sqr_sum = 0;
+        double sqrSum = 0;
         for (double x: this.temp) {
-            sqr_sum += x*x;
+            sqrSum += x*x;
         }
         double avg = this.average();
-        return Math.sqrt(sqr_sum / this.length - avg * avg);
+        return Math.sqrt(sqrSum / this.length - avg * avg);
     }
 
     public double min() throws IllegalArgumentException {
@@ -68,27 +68,28 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToValue(double tempValue)
             throws IllegalArgumentException {
         checkEmpty();
-        double closest_to_value = this.temp[0];
-        double current_distance = Math.abs(closest_to_value - tempValue);
+        double closestToValue = this.temp[0];
+        double currentDistance = Math.abs(closestToValue - tempValue);
         for (double temperature: this.temp) {
             double distance = Math.abs(temperature - tempValue);
-            if (distance < current_distance ||
-                    (distance == current_distance && temperature >= tempValue)) {
-                closest_to_value = temperature;
-                current_distance = Math.abs(closest_to_value - tempValue);
+            if (distance < currentDistance
+                    || (distance == currentDistance
+                            && temperature >= tempValue)) {
+                closestToValue = temperature;
+                currentDistance = Math.abs(closestToValue - tempValue);
             }
         }
-        return closest_to_value;
+        return closestToValue;
     }
 
     public double[] findTempsLessThen(double tempValue) {
-        int number_of_needed = 0;
+        int numberOfNeeded = 0;
         for (double temperature: this.temp) {
             if (temperature < tempValue) {
-                number_of_needed++;
+                numberOfNeeded++;
             }
         }
-        double[] lessArray = new double[number_of_needed];
+        double[] lessArray = new double[numberOfNeeded];
         int idx = 0;
         for (double temperature: this.temp) {
             if (temperature < tempValue) {
@@ -100,13 +101,13 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double[] findTempsGreaterThen(double tempValue) {
-        int number_of_needed = 0;
+        int numberOfNeeded = 0;
         for (double temperature: this.temp) {
             if (temperature >= tempValue) {
-                number_of_needed++;
+                numberOfNeeded++;
             }
         }
-        double[] lessArray = new double[number_of_needed];
+        double[] lessArray = new double[numberOfNeeded];
         int idx = 0;
         for (double temperature: this.temp) {
             if (temperature >= tempValue) {
@@ -136,9 +137,9 @@ public class TemperatureSeriesAnalysis {
     }
 
     private void resize() {
-        double[] new_temp = new double[2 * this.length + 1];
-        System.arraycopy(this.temp, 0, new_temp, 0, this.length);
-        this.temp = new_temp;
+        double[] newTemp = new double[2 * this.length + 1];
+        System.arraycopy(this.temp, 0, newTemp, 0, this.length);
+        this.temp = newTemp;
         this.capacity = this.capacity * 2 + 1;
     }
 

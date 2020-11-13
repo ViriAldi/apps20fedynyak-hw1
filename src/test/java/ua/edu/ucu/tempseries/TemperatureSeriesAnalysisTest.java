@@ -160,9 +160,21 @@ public class TemperatureSeriesAnalysisTest {
         double[] temperatureSeries = {5.0, -6.0, 7.0, 8.0, -9.0, -5.0};
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double expResultAvg = 0.0;
+        double actualResultAvg = seriesAnalysis.summaryStatistics().getAvgTemp();
 
-        double actualResult = seriesAnalysis.summaryStatistics().getAvgTemp();
+        double expResultDev = Math.sqrt(280.0 / 6);
+        double actualResultDev = seriesAnalysis.summaryStatistics().getDevTemp();
 
-        assertEquals(expResultAvg, actualResult, 0.00001);
+        double expResultMin = -9.0;
+        double actualResultMin = seriesAnalysis.summaryStatistics().getMinTemp();
+
+        double expResultMax = 8.0;
+        double actualResultMax = seriesAnalysis.summaryStatistics().getMaxTemp();
+
+        assertEquals(expResultAvg, actualResultAvg, 0.00001);
+        assertEquals(expResultDev, actualResultDev, 0.00001);
+        assertEquals(expResultMin, actualResultMin, 0.00001);
+        assertEquals(expResultMax, actualResultMax, 0.00001);
+
     }
 }
