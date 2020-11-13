@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     static final int START_BUFFER = 8;
     static final double LOWEST_TEMPERATURE = -273.0;
+    static final double DELTA = 0.0000001;
 
     private double[] temp;
     private int length;
@@ -19,7 +20,9 @@ public class TemperatureSeriesAnalysis {
     public TemperatureSeriesAnalysis(double[] temperatureSeries)
             throws InputMismatchException {
         checkBadTemperature(temperatureSeries);
-        this.temp = temperatureSeries;
+        this.temp = new double[temperatureSeries.length];
+        System.arraycopy(temperatureSeries, 0,
+                this.temp, 0, temperatureSeries.length);
         this.length = this.temp.length;
         this.capacity = this.temp.length;
     }
@@ -73,7 +76,7 @@ public class TemperatureSeriesAnalysis {
         for (double temperature: this.temp) {
             double distance = Math.abs(temperature - tempValue);
             if (distance < currentDistance
-                    || (distance == currentDistance
+                    || (Math.abs(distance - currentDistance) < DELTA
                             && temperature >= tempValue)) {
                 closestToValue = temperature;
                 currentDistance = Math.abs(closestToValue - tempValue);
