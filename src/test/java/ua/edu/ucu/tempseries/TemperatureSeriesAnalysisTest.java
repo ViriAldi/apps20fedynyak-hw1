@@ -2,7 +2,6 @@ package ua.edu.ucu.tempseries;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.junit.Ignore;
 
 import java.util.InputMismatchException;
 
@@ -162,7 +161,7 @@ public class TemperatureSeriesAnalysisTest {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double expResultAvg = 0.0;
 
-        double actualResult = seriesAnalysis.summaryStatistics().avgTemp;
+        double actualResult = seriesAnalysis.summaryStatistics().getAvgTemp();
 
         assertEquals(expResultAvg, actualResult, 0.00001);
     }
